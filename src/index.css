@@ -79,7 +79,7 @@
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
 }
 
-/* Fixed monochrome silk texture behind every page section. */
+/* A single photographic web texture, cropped around the outer strands. */
 body {
   position: relative;
   isolation: isolate;
@@ -91,11 +91,14 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: url('/spiderweb-background.svg');
-  background-position: center top;
-  background-size: min(100vw, 1000px) auto;
-  background-repeat: repeat;
-  opacity: 0.28;
+  background-image:
+    radial-gradient(ellipse 18% 23% at 45% 46%, #000 0 48%, transparent 86%),
+    radial-gradient(circle 6vw at 0% 73%, #000 0 35%, transparent 95%),
+    url('/web-periphery-reference.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.14;
 }
 
 #root {
