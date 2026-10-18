@@ -148,7 +148,7 @@ export function App() {
           </h2>
 
           <p className="text-base sm:text-lg text-slate-300 font-sans leading-relaxed">
-            Select a web intersection to inspect engineering documentation,
+            Select a circular project point to inspect engineering documentation,
             CAD models, and code repositories.
           </p>
 
@@ -213,7 +213,7 @@ export function App() {
                   Select a Project Node
                 </h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-mono">
-                  Click any purple intersection on the spider web to inspect robotics, CAD models,
+                  Choose a circular point on the web to inspect robotics, CAD models,
                   or mobile app engineering specs.
                 </p>
                 <button

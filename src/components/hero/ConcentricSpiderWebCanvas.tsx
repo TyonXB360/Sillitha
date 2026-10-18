@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { ProjectNode, EngineeringDiscipline } from '../../types/portfolio';
-import { SpiderGraphic } from '../common/SpiderGraphic';
 
 interface ConcentricSpiderWebCanvasProps {
   projects: ProjectNode[];
@@ -17,7 +16,6 @@ interface WebIntersection {
   ringFraction: number;
   x: number;
   y: number;
-  radius: number;
 }
 
 interface PointerPhysics {
@@ -32,6 +30,16 @@ interface PointerPhysics {
 
 const SPOKE_COUNT = 12;
 const RING_COUNT = 7;
+const TAU = Math.PI * 2;
+
+const spokeAngle = (index: number) =>
+  (index / SPOKE_COUNT) * TAU + Math.sin(index * 2.17) * 0.026 + Math.cos(index * 0.73) * 0.014;
+
+const ringRadius = (ring: number, spoke: number, maxRadius: number) => {
+  const base = ring / RING_COUNT;
+  const irregularity = Math.sin(spoke * 1.61 + ring * 0.87) * 0.012;
+  return (base + irregularity) * maxRadius;
+};
 
 export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps> = ({
   projects,
@@ -54,6 +62,7 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
     initialized: false,
   });
   const animateRef = useRef<FrameRequestCallback>(() => {});
+  const [intersections, setIntersections] = useState<WebIntersection[]>([]);
 
   const drawWeb = useCallback(() => {
     const canvas = canvasRef.current;
@@ -82,77 +91,77 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
       : undefined;
     const pointer = pointerRef.current;
 
-    // Gently push nearby silk away from the pointer, like a web under light tension.
     const bend = (x: number, y: number) => {
       if (pointer.strength < 0.005) return { x, y };
       const dx = x - pointer.x;
       const dy = y - pointer.y;
       const distance = Math.hypot(dx, dy);
       if (distance < 0.01) return { x, y };
-      const reach = 145;
-      const influence = Math.exp(-(distance * distance) / (2 * reach * reach));
+      const influence = Math.exp(-(distance * distance) / (2 * 145 * 145));
       const offset = 18 * influence * pointer.strength;
       return { x: x + (dx / distance) * offset, y: y + (dy / distance) * offset };
     };
 
-    // Draw radial strands as curves so local pointer tension can flex them smoothly.
+    // Curved radial strands use individually offset controls for an organic sweep.
     for (let spoke = 0; spoke < SPOKE_COUNT; spoke += 1) {
-      const angle = (spoke / SPOKE_COUNT) * Math.PI * 2;
-      const end = bend(
-        centerX + Math.cos(angle) * maxRadius,
-        centerY + Math.sin(angle) * maxRadius
-      );
+      const angle = spokeAngle(spoke);
+      const tangentX = -Math.sin(angle);
+      const tangentY = Math.cos(angle);
+      const curve = Math.sin(spoke * 1.9) * 9;
       const control1 = bend(
-        centerX + Math.cos(angle) * maxRadius / 3,
-        centerY + Math.sin(angle) * maxRadius / 3
+        centerX + Math.cos(angle) * maxRadius / 3 + tangentX * curve * 0.35,
+        centerY + Math.sin(angle) * maxRadius / 3 + tangentY * curve * 0.35
       );
       const control2 = bend(
-        centerX + Math.cos(angle) * maxRadius * 2 / 3,
-        centerY + Math.sin(angle) * maxRadius * 2 / 3
+        centerX + Math.cos(angle) * maxRadius * 2 / 3 + tangentX * curve,
+        centerY + Math.sin(angle) * maxRadius * 2 / 3 + tangentY * curve
       );
+      const endRadius = ringRadius(RING_COUNT, spoke, maxRadius);
+      const end = bend(centerX + Math.cos(angle) * endRadius, centerY + Math.sin(angle) * endRadius);
       const isActive = activeIntersection?.spokeIndex === spoke;
 
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
       ctx.bezierCurveTo(control1.x, control1.y, control2.x, control2.y, end.x, end.y);
       ctx.strokeStyle = isActive ? 'rgba(224, 224, 224, 0.72)' : 'rgba(160, 160, 160, 0.36)';
-      ctx.lineWidth = isActive ? 1.6 : 1;
+      ctx.lineWidth = 0.9 + (spoke % 3) * 0.12;
       ctx.stroke();
     }
 
-    // Draw concentric silk rings with a shallow inward sag.
+    // Each ring has uneven spacing and a slightly shifting anchor at every spoke.
     for (let ring = 1; ring <= RING_COUNT; ring += 1) {
       const ringFraction = ring / RING_COUNT;
-      const ringRadius = ringFraction * maxRadius;
-      const isActive = activeIntersection &&
-        Math.abs(activeIntersection.ringFraction - ringFraction) < 0.12;
-
+      const isActive = activeIntersection && Math.abs(activeIntersection.ringFraction - ringFraction) < 0.12;
       ctx.beginPath();
+
       for (let spoke = 0; spoke < SPOKE_COUNT; spoke += 1) {
-        const angle1 = (spoke / SPOKE_COUNT) * Math.PI * 2;
-        const angle2 = ((spoke + 1) / SPOKE_COUNT) * Math.PI * 2;
-        const p1 = bend(
-          centerX + Math.cos(angle1) * ringRadius,
-          centerY + Math.sin(angle1) * ringRadius
-        );
-        const p2 = bend(
-          centerX + Math.cos(angle2) * ringRadius,
-          centerY + Math.sin(angle2) * ringRadius
-        );
+        const nextSpoke = (spoke + 1) % SPOKE_COUNT;
+        const angle1 = spokeAngle(spoke);
+        const angle2 = spokeAngle(nextSpoke);
+        const radius1 = ringRadius(ring, spoke, maxRadius);
+        const radius2 = ringRadius(ring, nextSpoke, maxRadius);
+        const p1 = bend(centerX + Math.cos(angle1) * radius1, centerY + Math.sin(angle1) * radius1);
+        const p2 = bend(centerX + Math.cos(angle2) * radius2, centerY + Math.sin(angle2) * radius2);
         const midX = (p1.x + p2.x) / 2;
         const midY = (p1.y + p2.y) / 2;
+        const inwardSag = 0.11 + Math.sin(spoke * 1.3 + ring) * 0.025;
+        const lateralSway = Math.sin(spoke * 2.1 + ring * 0.7) * 4;
+        const tangentX = -(p2.y - p1.y);
+        const tangentY = p2.x - p1.x;
+        const tangentLength = Math.hypot(tangentX, tangentY) || 1;
         const control = bend(
-          midX + (centerX - midX) * 0.14,
-          midY + (centerY - midY) * 0.14
+          midX + (centerX - midX) * inwardSag + (tangentX / tangentLength) * lateralSway,
+          midY + (centerY - midY) * inwardSag + (tangentY / tangentLength) * lateralSway
         );
 
         if (spoke === 0) ctx.moveTo(p1.x, p1.y);
         ctx.quadraticCurveTo(control.x, control.y, p2.x, p2.y);
       }
+
       ctx.strokeStyle = isActive
         ? 'rgba(224, 224, 224, 0.72)'
-        : `rgba(160, 160, 160, ${0.18 + ringFraction * 0.12})`;
-      ctx.lineWidth = isActive ? 1.5 : 1;
+        : `rgba(160, 160, 160, ${0.17 + ringFraction * 0.13})`;
+      ctx.lineWidth = isActive ? 1.5 : 0.85 + (ring % 3) * 0.08;
       ctx.stroke();
     }
   }, [hoveredNode, selectedNode]);
@@ -165,22 +174,23 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
     const centerX = width / 2;
     const centerY = height / 2;
     const maxRadius = Math.min(width, height) * 0.44;
-    const nextIntersections = new Map<string, WebIntersection>();
-
-    projects.forEach((project) => {
-      const angle = (project.radialPosition.spokeAngleDeg * Math.PI) / 180;
-      const ringFraction = project.radialPosition.ringFraction;
-      nextIntersections.set(project.id, {
+    const nextIntersections = projects.map((project) => {
+      const rawAngle = (project.radialPosition.spokeAngleDeg * Math.PI) / 180;
+      const spokeIndex = Math.round((project.radialPosition.spokeAngleDeg / 360) * SPOKE_COUNT) % SPOKE_COUNT;
+      const angle = spokeAngle(spokeIndex) + (rawAngle - (spokeIndex / SPOKE_COUNT) * TAU);
+      const fraction = project.radialPosition.ringFraction;
+      const warpedRadius = (fraction + Math.sin(spokeIndex * 1.61 + fraction * RING_COUNT * 0.87) * 0.012) * maxRadius;
+      return {
         project,
-        spokeIndex: Math.round((project.radialPosition.spokeAngleDeg / 360) * SPOKE_COUNT) % SPOKE_COUNT,
-        ringFraction,
-        x: centerX + Math.cos(angle) * ringFraction * maxRadius,
-        y: centerY + Math.sin(angle) * ringFraction * maxRadius,
-        radius: project.featured ? 22 : 18,
-      });
+        spokeIndex,
+        ringFraction: fraction,
+        x: centerX + Math.cos(angle) * warpedRadius,
+        y: centerY + Math.sin(angle) * warpedRadius,
+      };
     });
 
-    intersectionsRef.current = nextIntersections;
+    intersectionsRef.current = new Map(nextIntersections.map((item) => [item.project.id, item]));
+    setIntersections(nextIntersections);
     drawWeb();
   }, [drawWeb, projects]);
 
@@ -206,9 +216,7 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
   };
 
   const scheduleDraw = () => {
-    if (frameRef.current === null) {
-      frameRef.current = requestAnimationFrame(animateRef.current);
-    }
+    if (frameRef.current === null) frameRef.current = requestAnimationFrame(animateRef.current);
   };
 
   useEffect(() => {
@@ -224,28 +232,9 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
     drawWeb();
   }, [drawWeb]);
 
-  const getCoordinates = (
-    event: React.PointerEvent<HTMLCanvasElement> |
-      React.MouseEvent<HTMLCanvasElement> |
-      React.TouchEvent<HTMLCanvasElement>
-  ) => {
+  const getCoordinates = (event: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    if ('touches' in event && event.touches.length > 0) {
-      return { x: event.touches[0].clientX - rect.left, y: event.touches[0].clientY - rect.top };
-    }
-    if ('clientX' in event) {
-      return { x: event.clientX - rect.left, y: event.clientY - rect.top };
-    }
-    return { x: 0, y: 0 };
-  };
-
-  const findNodeAtCoords = (x: number, y: number): ProjectNode | null => {
-    for (const intersection of intersectionsRef.current.values()) {
-      if (Math.hypot(intersection.x - x, intersection.y - y) <= intersection.radius + 8) {
-        return intersection.project;
-      }
-    }
-    return null;
+    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
   };
 
   const handlePointerMove = (event: React.PointerEvent<HTMLCanvasElement>) => {
@@ -261,8 +250,15 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
     pointer.targetStrength = 1;
     scheduleDraw();
 
-    const hit = findNodeAtCoords(x, y);
-    if (hit !== hoveredNode) onHoverNode(hit);
+    const hit = intersectionsRef.current.values();
+    let hovered: ProjectNode | null = null;
+    for (const point of hit) {
+      if (Math.hypot(point.x - x, point.y - y) < 18) {
+        hovered = point.project;
+        break;
+      }
+    }
+    if (hovered !== hoveredNode) onHoverNode(hovered);
   };
 
   const handlePointerLeave = () => {
@@ -271,20 +267,8 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
     onHoverNode(null);
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    const { x, y } = getCoordinates(event);
-    const hit = findNodeAtCoords(x, y);
-    if (hit) onSelectNode(hit);
-  };
-
-  const handleTouchStart = (event: React.TouchEvent<HTMLCanvasElement>) => {
-    const { x, y } = getCoordinates(event);
-    const hit = findNodeAtCoords(x, y);
-    if (hit) {
-      onHoverNode(hit);
-      onSelectNode(hit);
-    }
-  };
+  const activeNode = hoveredNode || selectedNode;
+  const spiderAngle = activeNode ? activeNode.radialPosition.spokeAngleDeg - 90 : 0;
 
   return (
     <div
@@ -295,16 +279,48 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
         ref={canvasRef}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
-        onClick={handleClick}
-        onTouchStart={handleTouchStart}
-        aria-label="Interactive structural spider web. Move your pointer to flex the strands, or select a web intersection to inspect a project."
-        className="relative z-10 w-full h-full cursor-crosshair touch-none select-none"
+        aria-label="Interactive spider web. Hover a circular project point to flex the strands, or select it to inspect the project."
+        className="absolute inset-0 z-10 w-full h-full touch-none select-none"
       />
+
+      {intersections.map((point) => {
+        const isSelected = selectedNode?.id === point.project.id;
+        const isHovered = hoveredNode?.id === point.project.id;
+        return (
+          <button
+            key={point.project.id}
+            type="button"
+            aria-label={`Open ${point.project.title}`}
+            title={point.project.title}
+            onClick={() => onSelectNode(point.project)}
+            onPointerEnter={() => onHoverNode(point.project)}
+            onPointerLeave={() => onHoverNode(null)}
+            onFocus={() => onHoverNode(point.project)}
+            onBlur={() => onHoverNode(null)}
+            className={`absolute z-20 grid h-7 w-7 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+              isSelected || isHovered
+                ? 'scale-110 border-white bg-white/20 shadow-[0_0_0_4px_rgba(255,255,255,0.08)]'
+                : 'border-white/65 bg-black/75 hover:scale-110 hover:border-white hover:bg-white/15'
+            }`}
+            style={{ left: point.x, top: point.y }}
+          >
+            <span className={`h-2 w-2 rounded-full transition-colors ${isSelected || isHovered ? 'bg-white' : 'bg-slate-300'}`} />
+          </button>
+        );
+      })}
+
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-30"
         aria-hidden="true"
+        style={{ transform: `translate(-50%, -50%) rotate(${spiderAngle}deg)`, transition: 'transform 380ms ease-out' }}
       >
-        <SpiderGraphic size={88} glow={true} />
+        <img
+          src="/spider-detailed.png"
+          alt=""
+          draggable={false}
+          className="h-32 w-28 select-none object-contain sm:h-40 sm:w-36"
+          style={{ filter: 'contrast(1.22) brightness(1.08) drop-shadow(0 0 8px rgba(255, 255, 255, 0.45))' }}
+        />
       </div>
     </div>
   );
