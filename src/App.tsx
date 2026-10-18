@@ -98,9 +98,8 @@ export function App() {
         {/* Exact Brand Statement & Philosophy */}
         <div className="max-w-3xl space-y-4">
           <p className="text-lg sm:text-xl md:text-2xl text-slate-200 font-sans leading-relaxed">
-            Sillitha web is a one-person engineering studio offering website development,
-            app development, and CAD design. Built on the idea that the best solutions come from
-            connecting disciplines most people keep separate.
+            Everything is connected. We explore those relationships through science, then bring
+            disciplines together through engineering to create what comes next.
           </p>
         </div>
 

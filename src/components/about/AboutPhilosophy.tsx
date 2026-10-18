@@ -111,17 +111,29 @@ export const AboutPhilosophy: React.FC = () => {
                   STUDIO ETHOS & MISSION
                 </span>
                 <h3 className="text-2xl font-bold text-white uppercase mt-1 font-sans">
-                  Sillitha Studios
+                  Sillitha Studio
                 </h3>
                 <h4 className="text-sm font-semibold text-slate-300 font-mono mt-0.5">
-                  One-Person Multi-Disciplinary Hub
+                  Science discovers. Engineering builds.
                 </h4>
               </div>
-              <p className="text-sm text-slate-300 leading-relaxed font-sans">
-                &ldquo;Sillitha web is built on the idea that the best solutions come from connecting
-                disciplines most people keep separate. Sillitha stands for compassion, creativity,
-                reliability, and a love of life.&rdquo;
-              </p>
+              <div className="space-y-3 text-sm text-slate-300 leading-relaxed font-sans">
+                <p>
+                  <strong className="text-white">Science:</strong> Everything in the universe is
+                  connected. Science explores these relationships, uncovering patterns that expand
+                  our understanding.
+                </p>
+                <p>
+                  <strong className="text-white">Engineering:</strong> Engineering puts those
+                  connections to work. We bring skills across disciplines together to build new
+                  technologies, systems, and solutions.
+                </p>
+                <p>
+                  <strong className="text-white">Mission:</strong> We bridge fundamental scientific
+                  discovery with practical, multidisciplinary engineering to create meaningful
+                  innovations for what comes next.
+                </p>
+              </div>
             </div>
           </div>
         )}

@@ -47,7 +47,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           {/* Sillitha Philosophy Quote */}
           <div className="p-6 rounded-2xl bg-sillitha-card/80 border border-sillitha-border max-w-3xl mx-auto backdrop-blur-md">
             <p className="text-base sm:text-lg text-slate-300 font-sans italic leading-relaxed">
-              &ldquo;Sillitha is said to stand for compassion, creativity, reliability, and a love of life and as such that energy will be brought forward with each project.&rdquo;
+              &ldquo;We bridge fundamental discovery and practical engineering, bringing disciplines
+              together to create meaningful, next-generation solutions.&rdquo;
             </p>
           </div>
         </div>
