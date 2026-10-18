@@ -27,11 +27,11 @@ export const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="border-t border-slate-700/80 bg-black text-slate-300 pt-16 pb-12 px-4 sm:px-6 lg:px-8 relative z-20">
+    <footer className="border-t border-slate-700/80 bg-transparent text-slate-300 pt-16 pb-12 px-4 sm:px-6 lg:px-8 relative z-20">
       <div className="max-w-7xl mx-auto flex flex-col items-center space-y-12">
         {/* Glowing White Spider Graphic Center Top */}
         <div className="flex flex-col items-center justify-center space-y-2">
-          <SpiderGraphic size={64} glow={true} className="animate-spider-pulse" />
+          <SpiderGraphic size={64} glow={true}  />
           <span className="text-base font-black tracking-widest text-white uppercase drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
             Sillitha Web
           </span>

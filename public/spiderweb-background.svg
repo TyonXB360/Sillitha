@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 900" fill="none">
+  <g stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Upper-left web: irregular spokes and broken, sagging cross threads. -->
+    <g stroke-width="1.1" opacity="0.55">
+      <path d="M74 180 Q142 157 218 202"/><path d="M84 207 Q153 183 234 226"/>
+      <path d="M100 238 Q170 214 248 248"/><path d="M122 273 Q189 247 263 271"/>
+      <path d="M155 306 Q211 280 276 295"/><path d="M199 335 Q235 310 292 315"/>
+      <path d="M237 119 Q221 174 218 202 M218 202 Q212 264 199 335"/>
+      <path d="M296 130 Q261 176 248 248 M248 248 Q234 290 220 347"/>
+      <path d="M367 166 Q306 192 263 271 M263 271 Q251 308 251 357"/>
+      <path d="M401 232 Q331 241 276 295 M276 295 Q276 322 290 373"/>
+      <path d="M375 311 Q323 305 292 315 M292 315 Q305 342 328 385"/>
+      <path d="M177 119 Q169 163 174 190 M174 190 Q184 221 194 249"/>
+      <path d="M139 154 Q148 188 158 217 M158 217 Q175 246 190 280"/>
+      <path d="M318 184 Q285 205 273 232 M320 270 Q300 277 291 288"/>
+    </g>
+    <!-- Snapped silk ends. -->
+    <g stroke-width="1.5" opacity="0.68">
+      <path d="M67 178l-8-3 M82 207l-7 2 M399 231l9-2 M375 312l7 4"/>
+      <path d="M237 119l3-9 M296 130l6-7 M367 166l9-5 M177 119l-1-8"/>
+      <path d="M200 336l-3 10 M250 357l-1 9 M290 373l4 8"/>
+    </g>
+    <!-- Fine attachment silk and tiny dew beads. -->
+    <g stroke-width="0.65" opacity="0.38">
+      <path d="M72 190q-14 5-22 14 M118 225q-12 7-16 18 M155 282q-9 11-10 20"/>
+      <path d="M340 201q15-8 25-7 M347 287q15 0 24 8 M228 352q-5 13-3 22"/>
+    </g>
+    <g fill="#FFFFFF" stroke="none">
+      <circle cx="158" cy="217" r="1.8" opacity="0.64"/><circle cx="218" cy="202" r="2.2" opacity="0.78"/>
+      <circle cx="263" cy="271" r="1.7" opacity="0.58"/><circle cx="292" cy="315" r="2" opacity="0.68"/>
+      <circle cx="174" cy="190" r="1.4" opacity="0.5"/><circle cx="276" cy="295" r="1.5" opacity="0.58"/>
+    </g>
+    <g stroke-width="0.65" opacity="0.5">
+      <circle cx="158" cy="217" r="3.5"/><circle cx="218" cy="202" r="4"/><circle cx="292" cy="315" r="3.4"/>
+    </g>
+
+    <!-- Lower-right web: a looser, partially collapsed section. -->
+    <g stroke-width="1.05" opacity="0.48">
+      <path d="M580 583 Q643 562 704 584"/><path d="M597 620 Q663 596 728 613"/>
+      <path d="M618 657 Q683 632 751 644"/><path d="M648 694 Q708 670 773 677"/>
+      <path d="M681 731 Q739 708 796 711"/><path d="M727 765 Q774 744 821 746"/>
+      <path d="M652 508 Q643 552 643 577 M643 577 Q646 642 648 694"/>
+      <path d="M718 496 Q689 548 704 584 M704 584 Q719 632 751 644"/>
+      <path d="M790 526 Q751 560 728 613 M728 613 Q754 665 773 677"/>
+      <path d="M851 575 Q790 590 751 644 M751 644 Q786 687 796 711"/>
+      <path d="M900 649 Q824 650 773 677 M773 677 Q807 713 821 746"/>
+      <path d="M868 730 Q819 716 796 711 M796 711 Q819 740 850 775"/>
+      <path d="M621 544 Q638 571 657 599 M657 599 Q677 627 698 652"/>
+      <path d="M748 540 Q726 565 718 590 M820 599 Q788 613 778 629"/>
+    </g>
+    <g stroke-width="1.5" opacity="0.62">
+      <path d="M580 583l-9-3 M596 620l-8 3 M900 649l8 2 M868 730l8 5"/>
+      <path d="M652 508l-1-9 M718 496l4-8 M790 526l7-7 M851 575l8-4"/>
+      <path d="M648 694l-1 10 M773 677l6 8 M850 775l6 8"/>
+    </g>
+    <g stroke-width="0.65" opacity="0.34">
+      <path d="M604 606q-15 3-22 12 M674 679q-12 9-12 19 M835 617q13-7 22-5"/>
+      <path d="M709 751q-5 12-2 21 M827 686q13 3 20 12 M761 560q-7 12-5 23"/>
+    </g>
+    <g fill="#FFFFFF" stroke="none">
+      <circle cx="657" cy="599" r="1.6" opacity="0.62"/><circle cx="704" cy="584" r="2.1" opacity="0.72"/>
+      <circle cx="751" cy="644" r="1.8" opacity="0.58"/><circle cx="796" cy="711" r="2" opacity="0.68"/>
+      <circle cx="728" cy="613" r="1.5" opacity="0.54"/><circle cx="773" cy="677" r="1.4" opacity="0.52"/>
+    </g>
+    <g stroke-width="0.65" opacity="0.45">
+      <circle cx="657" cy="599" r="3.3"/><circle cx="704" cy="584" r="3.8"/><circle cx="796" cy="711" r="3.5"/>
+    </g>
+  </g>
+</svg>

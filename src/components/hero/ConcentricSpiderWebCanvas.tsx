@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import type { ProjectNode, EngineeringDiscipline } from '../../types/portfolio';
+import { SpiderGraphic } from '../common/SpiderGraphic';
 
 interface ConcentricSpiderWebCanvasProps {
   projects: ProjectNode[];
@@ -188,6 +189,9 @@ export const ConcentricSpiderWebCanvas: React.FC<ConcentricSpiderWebCanvasProps>
       ref={containerRef}
       className="relative w-full h-[580px] sm:h-[680px] lg:h-[740px] overflow-hidden rounded-3xl border border-slate-700/80 bg-black flex items-center justify-center"
     >
+      <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
+        <SpiderGraphic size={56} glow={true} />
+      </div>
       <canvas
         ref={canvasRef}
         onMouseMove={handleMouseMove}

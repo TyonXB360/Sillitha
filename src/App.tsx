@@ -57,7 +57,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 flex flex-col selection:bg-electric-600/30 selection:text-electric-300 relative font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-transparent text-slate-100 flex flex-col selection:bg-electric-600/30 selection:text-electric-300 relative font-sans overflow-x-hidden">
 
       {/* Global Navigation Bar */}
       <Navbar onNavigate={handleNavigate} />
@@ -69,7 +69,7 @@ export function App() {
       >
         {/* Brand Spider Emblem Badge */}
         <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-sillitha-card border border-slate-700 shadow-md">
-          <SpiderGraphic size={24} glow={false} />
+          <SpiderGraphic size={24} glow={true} />
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-slate-200">
             ENGINEERING STUDIO
           </span>
