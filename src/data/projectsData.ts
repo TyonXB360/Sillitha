@@ -89,7 +89,7 @@ export const DISCIPLINE_CONFIG: Record<
     borderClass: 'border-slate-700',
     bgClass: 'bg-sillitha-card',
     badgeClass: 'bg-sillitha-card border-slate-700 text-slate-200',
-    accentHex: '#5B50F6',
+    accentHex: '#FFFFFF',
   },
   cad: {
     name: 'CAD & 3D Prototyping',
@@ -99,7 +99,7 @@ export const DISCIPLINE_CONFIG: Record<
     borderClass: 'border-slate-700',
     bgClass: 'bg-sillitha-card',
     badgeClass: 'bg-sillitha-card border-slate-700 text-slate-200',
-    accentHex: '#4F46E5',
+    accentHex: '#A0A0A0',
   },
   software: {
     name: 'Full-Stack & Mobile Development',
@@ -109,7 +109,7 @@ export const DISCIPLINE_CONFIG: Record<
     borderClass: 'border-slate-700',
     bgClass: 'bg-sillitha-card',
     badgeClass: 'bg-sillitha-card border-slate-700 text-slate-200',
-    accentHex: '#5B50F6',
+    accentHex: '#FFFFFF',
   },
   hardware: {
     name: 'Embedded Systems & Automation',
@@ -119,7 +119,7 @@ export const DISCIPLINE_CONFIG: Record<
     borderClass: 'border-slate-700',
     bgClass: 'bg-sillitha-card',
     badgeClass: 'bg-sillitha-card border-slate-700 text-slate-200',
-    accentHex: '#4F46E5',
+    accentHex: '#A0A0A0',
   },
   ai: {
     name: 'Target Tracking & Vision AI',
@@ -129,7 +129,7 @@ export const DISCIPLINE_CONFIG: Record<
     borderClass: 'border-slate-700',
     bgClass: 'bg-sillitha-card',
     badgeClass: 'bg-sillitha-card border-slate-700 text-slate-200',
-    accentHex: '#5B50F6',
+    accentHex: '#FFFFFF',
   },
 };
 

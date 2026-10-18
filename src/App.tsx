@@ -57,10 +57,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-sillitha-900 text-slate-100 flex flex-col selection:bg-electric-600/30 selection:text-electric-300 relative font-sans overflow-x-hidden">
-      {/* Background ambient lighting */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-electric-600/5 rounded-full blur-[160px] pointer-events-none -z-10" />
-      <div className="fixed top-1/3 right-10 w-[500px] h-[500px] bg-electric-accent/5 rounded-full blur-[160px] pointer-events-none -z-10" />
+    <div className="min-h-screen bg-black text-slate-100 flex flex-col selection:bg-electric-600/30 selection:text-electric-300 relative font-sans overflow-x-hidden">
 
       {/* Global Navigation Bar */}
       <Navbar onNavigate={handleNavigate} />
@@ -152,7 +149,7 @@ export function App() {
           </h2>
 
           <p className="text-base sm:text-lg text-slate-300 font-sans leading-relaxed">
-            Click any purple node along the grey silk web strands to inspect engineering documentation,
+            Select a web intersection to inspect engineering documentation,
             CAD models, and code repositories.
           </p>
 
@@ -188,7 +185,7 @@ export function App() {
 
         {/* Concentric Spider Web Canvas + Node Preview Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-          {/* Main Spider Web Canvas (Grey silk threads, glowing white spider, purple nodes) */}
+          {/* Main Spider Web Canvas (structural grey silk strands) */}
           <div className="lg:col-span-8 w-full">
             <ConcentricSpiderWebCanvas
               projects={PROJECTS_DATA}

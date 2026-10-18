@@ -114,7 +114,7 @@ export const NodePopupCard: React.FC<NodePopupCardProps> = ({
             ))}
           </div>
 
-          {/* Action CTAs in Vibrant Purple (#5B50F6 / #4F46E5) */}
+          {/* Action CTAs in Vibrant Purple (#FFFFFF / #A0A0A0) */}
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-2.5">
             <button
               onClick={() => onOpenDeepDive(project)}

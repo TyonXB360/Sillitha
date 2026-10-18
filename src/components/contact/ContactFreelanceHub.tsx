@@ -98,7 +98,7 @@ export const ContactFreelanceHub: React.FC<ContactFreelanceHubProps> = ({
         particleCount: 90,
         spread: 80,
         origin: { y: 0.6 },
-        colors: ['#4F46E5', '#5B50F6', '#00F0FF', '#FFFFFF'],
+        colors: ['#A0A0A0', '#FFFFFF', '#E0E0E0', '#FFFFFF'],
       });
     }, 1000);
   };

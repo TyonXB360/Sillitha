@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="border-t border-slate-700/80 bg-sillitha-950 text-slate-300 pt-16 pb-12 px-4 sm:px-6 lg:px-8 relative z-20">
+    <footer className="border-t border-slate-700/80 bg-black text-slate-300 pt-16 pb-12 px-4 sm:px-6 lg:px-8 relative z-20">
       <div className="max-w-7xl mx-auto flex flex-col items-center space-y-12">
         {/* Glowing White Spider Graphic Center Top */}
         <div className="flex flex-col items-center justify-center space-y-2">

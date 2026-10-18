@@ -49,8 +49,8 @@ export const SpiderGraphic: React.FC<SpiderGraphicProps> = ({
           {/* Spine & Chitin Ridge Gradient */}
           <linearGradient id="spider-ridge-grad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#FFFFFF" />
-            <stop offset="50%" stop-color="#E0E7FF" />
-            <stop offset="100%" stop-color="#A5B4FC" />
+            <stop offset="50%" stop-color="#F5F5F5" />
+            <stop offset="100%" stop-color="#E0E0E0" />
           </linearGradient>
         </defs>
 

@@ -159,7 +159,7 @@ export const EngineeringWebCanvas: React.FC<EngineeringWebCanvasProps> = ({
         const r = (i / ringCount) * maxRingRadius;
         ctx.beginPath();
         ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(0, 240, 255, ${0.04 - i * 0.005})`;
+        ctx.strokeStyle = `rgba(224, 224, 224, ${0.04 - i * 0.005})`;
         ctx.lineWidth = 1;
         ctx.setLineDash([4, 6]);
         ctx.stroke();
@@ -529,12 +529,12 @@ export const EngineeringWebCanvas: React.FC<EngineeringWebCanvasProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[580px] sm:h-[680px] lg:h-[760px] overflow-hidden rounded-2xl border border-slate-800/80 bg-space-950 cyber-grid-bg shadow-2xl"
+      className="relative w-full h-[580px] sm:h-[680px] lg:h-[760px] overflow-hidden rounded-2xl border border-slate-800/80 bg-black cyber-grid-bg shadow-2xl"
     >
       {/* Background ambient lighting and radar sweep */}
       <div className="absolute inset-0 pointer-events-none radial-fade-mask bg-gradient-to-b from-space-900/60 via-transparent to-space-950" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-cyber-cyan/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-cyber-violet/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-electric-cyan/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-slate-300/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Interactive Canvas */}
       <canvas
@@ -551,11 +551,11 @@ export const EngineeringWebCanvas: React.FC<EngineeringWebCanvasProps> = ({
         {/* Status Chip */}
         <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-space-900/80 border border-slate-700/60 backdrop-blur-md shadow-lg">
           <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-cyan opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyber-cyan"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric-cyan opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-electric-cyan"></span>
           </span>
           <span className="text-xs font-mono text-slate-300">
-            ENGINEERING GRAPH: <span className="text-cyber-cyan font-semibold">INTERACTIVE</span>
+            ENGINEERING GRAPH: <span className="text-electric-cyan font-semibold">INTERACTIVE</span>
           </span>
           <span className="text-slate-600 text-xs">|</span>
           <span className="text-[11px] font-mono text-slate-400 hidden sm:inline">
@@ -570,7 +570,7 @@ export const EngineeringWebCanvas: React.FC<EngineeringWebCanvasProps> = ({
             title={pulsesEnabled ? 'Disable Energy Pulses' : 'Enable Energy Pulses'}
             className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-lg border transition-all ${
               pulsesEnabled
-                ? 'bg-cyber-cyan/10 border-cyber-cyan/40 text-cyber-cyan shadow-glow-cyan'
+                ? 'bg-electric-cyan/10 border-electric-cyan/40 text-electric-cyan shadow-glow-cyan'
                 : 'bg-space-900/70 border-slate-800 text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -583,7 +583,7 @@ export const EngineeringWebCanvas: React.FC<EngineeringWebCanvasProps> = ({
             title={physicsEnabled ? 'Lock Web Coordinates' : 'Enable Spring Physics'}
             className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-lg border transition-all ${
               physicsEnabled
-                ? 'bg-cyber-violet/10 border-cyber-violet/40 text-cyber-violet shadow-glow-violet'
+                ? 'bg-slate-300/10 border-slate-300/40 text-slate-200 shadow-glow-electric'
                 : 'bg-space-900/70 border-slate-800 text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -597,9 +597,9 @@ export const EngineeringWebCanvas: React.FC<EngineeringWebCanvasProps> = ({
               const luna = projects.find((p) => p.id === 'lunabotics');
               if (luna) onSelectNode(luna);
             }}
-            className="flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-lg bg-cyber-violet/20 border border-cyber-violet/60 text-purple-200 hover:bg-cyber-violet/30 transition-all shadow-glow-violet"
+            className="flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-lg bg-slate-300/20 border border-slate-300/60 text-slate-200 hover:bg-slate-300/30 transition-all shadow-glow-electric"
           >
-            <Eye className="w-3.5 h-3.5 text-cyber-violet" />
+            <Eye className="w-3.5 h-3.5 text-slate-200" />
             <span>Target Lunabotics</span>
           </button>
         </div>

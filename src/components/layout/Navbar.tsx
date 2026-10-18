@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { SpiderGraphic } from '../common/SpiderGraphic';
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
@@ -58,8 +57,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           onClick={() => handleLinkClick('hero')}
           className="flex items-center gap-3 group text-left cursor-pointer"
         >
-          <div className="w-10 h-10 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <SpiderGraphic size={40} glow={true} />
+          <div className="w-10 h-10 shrink-0 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <img src="/sillitha-logo.png" alt="Sillitha spider logo" className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-extrabold tracking-tight text-white font-sans uppercase">
